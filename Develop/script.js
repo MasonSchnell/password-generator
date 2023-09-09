@@ -17,24 +17,38 @@ function doYouWant(confirm, type) {
 }
 
 function generatePassword() {
-    // Resets passcode for multiple generation requests
+    // Resets passcode and selected characters for multiple generation requests
     passcode = "";
+    combined = "";
 
-    var wantsLowercase = confirm(
-        "Do you want lowercase letters in your password?"
-    );
-    var wantsUppercase = confirm(
-        "Do you want uppercase letters in your password?"
-    );
-    var wantsNumbers = confirm("Do you want numbers in your password?");
-    var wantsSpecials = confirm(
-        "Do you want special characters in your password?"
-    );
+    // Character set selector
+    let x = 0;
+    while (x < 1) {
+        var wantsLowercase = confirm(
+            "Do you want lowercase letters in your password?"
+        );
+        var wantsUppercase = confirm(
+            "Do you want uppercase letters in your password?"
+        );
+        var wantsNumbers = confirm("Do you want numbers in your password?");
+        var wantsSpecials = confirm(
+            "Do you want special characters in your password?"
+        );
 
-    doYouWant(wantsLowercase, lowercase);
-    doYouWant(wantsUppercase, uppercase);
-    doYouWant(wantsNumbers, numbers);
-    doYouWant(wantsSpecials, specials);
+        // Adds selected character sets to list of usable characters
+        doYouWant(wantsLowercase, lowercase);
+        doYouWant(wantsUppercase, uppercase);
+        doYouWant(wantsNumbers, numbers);
+        doYouWant(wantsSpecials, specials);
+
+        // Checks that atleast one character set is selected
+        console.log("Current amount " + combined);
+        if (combined.length < 1) {
+            alert("You must select atleast one set of characters.");
+        } else {
+            x++;
+        }
+    }
 
     // --------------------------------------------------------------------
     // Entry Error Checks
@@ -43,7 +57,9 @@ function generatePassword() {
         // Resets errors to base state
         i = 0;
         console.log("i is now " + i);
-        var passcodeLength = prompt("How many characters would you like?");
+        var passcodeLength = prompt(
+            "How many characters would you like? (8-128)"
+        );
 
         // Checks if its a whole number
         if (passcodeLength % 1 === 0) {
@@ -54,8 +70,8 @@ function generatePassword() {
         }
 
         // Checks if its between 1 and 180 characters
-        if (passcodeLength < 1 || passcodeLength > 180) {
-            alert("You must enter a valid number of characters. (1-180)");
+        if (passcodeLength < 8 || passcodeLength > 128) {
+            alert("You must enter a valid number of characters. (8-128)");
             i--;
         }
 
