@@ -13,7 +13,7 @@ This password generator is a simple tool to helps you create strong and secure p
 
 ## Usage
 
-1. Open your web browser and navigate to the Password Generator website. [Website Link]()
+1. Open your web browser and navigate to the Password Generator website. [Website Link](https://masonschnell.github.io/password-generator/)
 2. Click the "Generate" button and answer the prompts to fill out your password preferences.
 3. The generated password will appear in the "Your Secure Password" window.
 
