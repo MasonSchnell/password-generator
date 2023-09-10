@@ -1,28 +1,28 @@
 // Assignment code here
 
 // VARIABLES
-var lowercase = "abcdef";
-var uppercase = "ABCDEF";
+var lowercase = "abcdefghijklmnopqrstuvwxyz";
+var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var numbers = "0123456789";
 var specials = "!#$%&'()*+,-./:;<>=?@[]^_`{|}~";
 
 var combined = "";
 var passcode = "";
+var passcodeLength = 0;
 
 //FUNCTIONS
-function doYouWant(confirm, type) {
+
+// Collects characters selected
+// ----------------------------------------------------------
+function characterCollector(confirm, type) {
     if (confirm) {
         combined += type;
     }
 }
 
-function generatePassword() {
-    // Resets passcode and selected characters for multiple generation requests
-    passcode = "";
-    combined = "";
-
-    // --------------------------------------------------------------------
-    // CHARACTER SET SELECTOR
+// Prompts user to select preferred charcters and stores them
+// ----------------------------------------------------------
+function characterSelector() {
     let x = 0;
     while (x < 1) {
         // Asks which characters should be included
@@ -38,40 +38,36 @@ function generatePassword() {
         );
 
         // Adds selected character sets to list of usable characters
-        doYouWant(wantsLowercase, lowercase);
-        doYouWant(wantsUppercase, uppercase);
-        doYouWant(wantsNumbers, numbers);
-        doYouWant(wantsSpecials, specials);
+        characterCollector(wantsLowercase, lowercase);
+        characterCollector(wantsUppercase, uppercase);
+        characterCollector(wantsNumbers, numbers);
+        characterCollector(wantsSpecials, specials);
 
-        // Checks that atleast one character set is selected
-        console.log("Current amount " + combined);
+        // Checks that at least one character set is selected
         if (combined.length < 1) {
-            alert("You must select atleast one set of characters.");
+            alert("You must select at least one set of characters.");
         } else {
             x++;
         }
     }
+}
 
-    // --------------------------------------------------------------------
-    // ENTRY ERROR CHECKS
+// Checks if user input doesn't fit parameters
+// ----------------------------------------------------------
+function submissionErrorCheck() {
     let i = 0;
     while (i < 1) {
         // Resets errors
         i = 0;
-        console.log("i is now " + i);
-        var passcodeLength = prompt(
-            "How many characters would you like? (8-128)"
-        );
+        passcodeLength = prompt("How many characters would you like? (8-128)");
 
         // Checks if its a whole number
-        if (passcodeLength % 1 === 0) {
-            console.log("Valid number.");
-        } else {
+        if (passcodeLength % 1 !== 0) {
             alert("You must enter whole numbers.");
             i--;
         }
 
-        // Checks if its between 8 and 128 characters
+        // Checks if it's between 8 and 128 characters
         if (passcodeLength < 8 || passcodeLength > 128) {
             alert("You must enter a valid number of characters. (8-128)");
             i--;
@@ -80,18 +76,29 @@ function generatePassword() {
         // Breaks loop if there are no errors
         i++;
     }
+}
 
-    // --------------------------------------------------------------------
-    // CREATES RANDOM PASSWORD FROM SELECTED CHARACTERS
+// Generates password
+// ----------------------------------------------------------
+function generatePassword() {
+    // Resets passcode and selected characters for multiple generation requests
+    passcode = "";
+    combined = "";
 
+    // Character set selector
+    characterSelector();
+
+    // Entry error check
+    submissionErrorCheck();
+
+    // Creates random password from slected characters
     for (var count = 0; count < passcodeLength; count++) {
         var random = Math.random();
         var rounded = Math.floor(random * combined.length);
         passcode += combined[rounded];
     }
 
-    // --------------------------------------------------------------------
-    // RETURNS GENERATED PASSWORD
+    // Returns generated password
     return passcode;
 }
 
