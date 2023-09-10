@@ -21,9 +21,11 @@ function generatePassword() {
     passcode = "";
     combined = "";
 
-    // Character set selector
+    // --------------------------------------------------------------------
+    // CHARACTER SET SELECTOR
     let x = 0;
     while (x < 1) {
+        // Asks which characters should be included
         var wantsLowercase = confirm(
             "Do you want lowercase letters in your password?"
         );
@@ -51,10 +53,10 @@ function generatePassword() {
     }
 
     // --------------------------------------------------------------------
-    // Entry Error Checks
+    // ENTRY ERROR CHECKS
     let i = 0;
     while (i < 1) {
-        // Resets errors to base state
+        // Resets errors
         i = 0;
         console.log("i is now " + i);
         var passcodeLength = prompt(
@@ -69,7 +71,7 @@ function generatePassword() {
             i--;
         }
 
-        // Checks if its between 1 and 180 characters
+        // Checks if its between 8 and 128 characters
         if (passcodeLength < 8 || passcodeLength > 128) {
             alert("You must enter a valid number of characters. (8-128)");
             i--;
@@ -78,8 +80,9 @@ function generatePassword() {
         // Breaks loop if there are no errors
         i++;
     }
-    console.log("Out");
+
     // --------------------------------------------------------------------
+    // CREATES RANDOM PASSWORD FROM SELECTED CHARACTERS
 
     for (var count = 0; count < passcodeLength; count++) {
         var random = Math.random();
@@ -87,7 +90,8 @@ function generatePassword() {
         passcode += combined[rounded];
     }
 
-    // console.log("Password made it here: " + passcode);
+    // --------------------------------------------------------------------
+    // RETURNS GENERATED PASSWORD
     return passcode;
 }
 
